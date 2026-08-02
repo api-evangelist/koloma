@@ -1,0 +1,14 @@
+generated: '2026-08-01'
+method: searched
+source: npm, PyPI, GitHub org lookup, koloma.com site search
+packages: []
+findings:
+  npm: 'https://registry.npmjs.org/koloma → 404; no first-party @koloma scope found.'
+  pypi: 'https://pypi.org/pypi/koloma/json → 404.'
+  github_org: 'api.github.com/orgs/{koloma,kolomainc,koloma-inc} → 404; Koloma publishes
+    no GitHub organization.'
+  docs: 'No SDK, client library, CLI or SourceCode link exists anywhere on koloma.com,
+    koloma.com.au or kolomacalifornia.com.'
+note: 'Koloma ships no first-party client libraries. No SDKs pointer is emitted — the
+  sdk_count checks correctly score zero here rather than being credited against an
+  empty artifact.'

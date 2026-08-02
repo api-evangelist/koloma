@@ -1,0 +1,54 @@
+generated: '2026-08-01'
+method: probed
+source: https://www.kolomacalifornia.com/_api/mcp
+standards:
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  version: '2025-06-18'
+  evidence: 'initialize returned protocolVersion "2025-06-18" with capabilities {tools:{listChanged:true},logging:{}}
+    and serverInfo "Site Visitor Assistant for site \"Koloma California\"" v1.0.0.'
+  source: mcp/koloma-mcp.yml
+- id: json-rpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: 'All MCP responses carry "jsonrpc":"2.0" with matching request ids.'
+- id: llms-txt
+  name: llms.txt
+  conforms: true
+  evidence: 'https://www.kolomacalifornia.com/llms.txt returns 200 text/plain with
+    H1 name, blockquote summary and link sections.'
+  source: llms/koloma-llms.txt
+- id: openapi
+  conforms: false
+  evidence: 'No OpenAPI/Swagger document found on any Koloma host after probing /openapi.json,
+    /openapi.yaml, /swagger.json, /api-docs and /docs.'
+- id: graphql
+  conforms: false
+  evidence: No /graphql surface found on any Koloma host.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface published.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: '/.well-known/agent-card.json and /.well-known/agent.json return 404 (koloma.com,
+    koloma.com.au) and 400 (kolomacalifornia.com) — no agent card published.'
+- id: oauth2
+  conforms: false
+  evidence: No OAuth2 authorization server or protected-resource metadata published.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration not published on any host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No HTTP API with a documented error envelope.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt not published on any host.
+compliance_program:
+  published: false
+  note: 'Koloma publishes no trust center, certification list (SOC 2 / ISO 27001 /
+    PCI / HIPAA / FedRAMP) or compliance page. No Compliance pointer is emitted.'
+x-evidence:
+  fetched: '2026-08-01'

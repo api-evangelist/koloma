@@ -1,0 +1,61 @@
+generated: '2026-08-01'
+method: probed
+source: live HTTP probe of every Koloma host
+summary:
+  hosts_probed: 3
+  documents_found: 0
+  note: 'No /.well-known/ discovery document is published on any Koloma host. The only
+    root-level machine-readable discovery document found in this pass is /llms.txt
+    on the Koloma California regional site (captured verbatim at llms/koloma-llms.txt),
+    which advertises the site MCP endpoint at /_api/mcp. No security.txt, no OIDC/OAuth
+    discovery, no api-catalog, no ai-plugin.json, and no A2A agent card on any host.'
+hosts:
+- host: https://www.koloma.com
+  role: corporate website (WordPress)
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/mcp.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://koloma.com.au
+  role: Koloma Australia regional site
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/mcp.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /robots.txt, status: 404}
+- host: https://www.kolomacalifornia.com
+  role: Koloma California regional site (Wix)
+  note: 'This host answers 400 (not 404) for every /.well-known/* path — a platform
+    catch-all, not a document. No well-known document is served.'
+  documents:
+  - {path: /.well-known/security.txt, status: 400}
+  - {path: /.well-known/openid-configuration, status: 400}
+  - {path: /.well-known/oauth-authorization-server, status: 400}
+  - {path: /.well-known/oauth-protected-resource, status: 400}
+  - {path: /.well-known/api-catalog, status: 400}
+  - {path: /.well-known/ai-plugin.json, status: 400}
+  - {path: /.well-known/agent-card.json, status: 400}
+  - {path: /.well-known/agent.json, status: 400}
+  - {path: /.well-known/mcp.json, status: 400}
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: ../llms/koloma-llms.txt
+    note: root-level llms.txt (not a /.well-known/ document); advertises the site MCP endpoint
+x-evidence:
+  fetched: '2026-08-01'
+  tool: curl -sIL

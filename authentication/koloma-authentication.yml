@@ -1,0 +1,49 @@
+generated: '2026-08-01'
+method: probed
+source: https://www.kolomacalifornia.com/_api/mcp
+docs: https://dev.wix.com/docs/develop-websites/articles/get-started/about-the-wix-site-mcp
+summary:
+  types: [none, bearer-visitor-token]
+  api_key_in: []
+  oauth2_flows: []
+  note: 'Koloma publishes no developer API and no API key, OAuth or OIDC surface. The
+    only authenticated surface found is the Wix-platform site MCP endpoint on the Koloma
+    California host, whose discovery and read-only tools answer anonymously and whose
+    write/API-call tools require a visitor access token minted by the server itself.'
+schemes:
+- name: anonymous
+  type: none
+  applies_to:
+  - mcp:initialize
+  - mcp:tools/list
+  - mcp:GetBusinessDetails
+  - mcp:SearchInSite
+  - mcp:SearchSiteApiDocs
+  - mcp:BrowseWixRESTDocsMenu
+  - mcp:ReadFullDocsArticle
+  - mcp:ReadFullDocsMethodSchema
+  evidence: 'Live POST tools/list and tools/call GetBusinessDetails both returned HTTP
+    200 with no Authorization header.'
+  sources: [mcp/koloma-mcp.yml]
+- name: visitorToken
+  type: http
+  scheme: bearer
+  bearerFormat: Wix visitor access token
+  issued_by: mcp:GenerateVisitorToken
+  passed_as: tool argument (visitorToken), not an HTTP header
+  applies_to:
+  - mcp:CallWixSiteAPI
+  - mcp:ExecuteWixAPI
+  evidence: 'inputSchema for CallWixSiteAPI marks visitorToken required; GenerateVisitorToken
+    is documented as the mint step. Confirmed from the live tools/list response.'
+  sources: [mcp/koloma-mcp-tools-list.json]
+negative_findings:
+  openid_configuration: not published (404/400 on all hosts)
+  oauth_authorization_server: not published (404/400 on all hosts)
+  oauth_protected_resource: not published (404/400 on all hosts)
+  api_keys: no developer key issuance surface exists
+  openapi_security_schemes: no OpenAPI published
+x-evidence:
+  fetched: '2026-08-01'
+  url: https://www.kolomacalifornia.com/_api/mcp
+  http_status: 200

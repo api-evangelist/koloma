@@ -1,0 +1,108 @@
+generated: '2026-08-01'
+method: searched
+status: published
+source: https://www.kolomacalifornia.com/llms.txt
+server:
+  name: koloma-california-site
+  display_name: 'Site Visitor Assistant for site "Koloma California"'
+  transport: http
+  url: https://www.kolomacalifornia.com/_api/mcp
+  protocol_version: '2025-06-18'
+  server_version: 1.0.0
+  jsonrpc: '2.0'
+  authentication: none for discovery (tools/list, initialize and read-only tools answer anonymously)
+  platform: Wix Site MCP
+  platform_docs: https://dev.wix.com/docs/develop-websites/articles/get-started/about-the-wix-site-mcp
+provenance_note: 'This MCP server is provided by the Wix website platform, not authored
+  by Koloma. It is served from a Koloma-owned host (www.kolomacalifornia.com), self-identifies
+  as "Koloma California", and is advertised by that host''s own /llms.txt, so it is
+  recorded as a real, live agent surface for the company. It is a site-assistant surface
+  (search the marketing site, read business details, call Wix platform APIs on a visitor''s
+  behalf) — it is NOT a Koloma subsurface, exploration, geoscience or hydrogen data
+  API. Koloma publishes no such API.'
+discovery:
+  llms_txt: https://www.kolomacalifornia.com/llms.txt
+  tools_list: verified live (HTTP 200, 9 tools with inputSchema)
+  tools_list_file: koloma-mcp-tools-list.json
+capabilities:
+  tools: true
+  tools_list_changed: true
+  logging: true
+  resources: false
+  prompts: false
+tools:
+- name: GetBusinessDetails
+  description: Returns business and site details (timezone, email, phone, fax, address,
+    site/business name, description, business schedule) plus which Wix site features
+    are installed.
+  input_schema: {}
+  read_only: true
+- name: SearchInSite
+  description: Full-text search of the Koloma California site content.
+  input_schema:
+    searchTerm: string (required)
+  read_only: true
+- name: SearchSiteApiDocs
+  description: Searches the Wix API documentation for the business solutions installed
+    on this site and returns usage instructions.
+  input_schema:
+    searchTerm: string (required)
+  read_only: true
+- name: GenerateVisitorToken
+  description: Creates a new visitor session and returns a visitor access token, required
+    before any CallWixSiteAPI/ExecuteWixAPI request.
+  input_schema: {}
+  read_only: false
+- name: CallWixSiteAPI
+  description: Performs a single HTTP call against a Wix site API method on the visitor's
+    behalf.
+  input_schema:
+    visitorToken: string (required)
+    url: string uri (required)
+    method: string (required)
+    body: string JSON (optional)
+  read_only: false
+- name: ExecuteWixAPI
+  description: Runs a sandboxed JavaScript async function against the Wix REST API
+    on the visitor's behalf, allowing chained/paginated calls in one step.
+  input_schema:
+    code: string (required)
+    reason: string (required)
+    hasMutations: boolean (required)
+    sourceDocUrls: array of string (required)
+    visitorToken: string (optional)
+  read_only: false
+  destructive_hint: true
+- name: BrowseWixRESTDocsMenu
+  description: Browse the Wix REST API documentation menu hierarchy.
+  input_schema:
+    menuUrl: string (optional)
+    reason: string (required)
+  read_only: true
+- name: ReadFullDocsArticle
+  description: Fetches a complete article from the Wix developer documentation portal.
+  input_schema:
+    articleUrl: string uri (required)
+  read_only: true
+- name: ReadFullDocsMethodSchema
+  description: Fetches the full request/response schema for a Wix API method.
+  input_schema:
+    articleUrl: string uri (required)
+    reason: string (required)
+  read_only: true
+observations:
+  business_details_returned:
+    timeZone: America/Denver
+    siteDisplayName: Koloma California
+    businessName: Koloma California
+    installed_features: none reported
+  note: 'Tool descriptions returned by this server embed a large block of Wix "agent-mandatory-instructions"
+    addressed at the calling agent. Those are third-party platform prompt text carried
+    inside tool metadata, recorded here only as an observation — they are not Koloma
+    guidance and were not acted on.'
+x-evidence:
+  fetched: '2026-08-01'
+  url: https://www.kolomacalifornia.com/_api/mcp
+  initialize_http_status: 200
+  tools_list_http_status: 200
+  tools_count: 9
