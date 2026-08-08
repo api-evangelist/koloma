@@ -1,0 +1,21 @@
+{
+  "repo": "koloma",
+  "feeds": [
+    {
+      "source": "https://www.koloma.com/",
+      "feed_url": "https://www.koloma.com/feed/",
+      "title": "",
+      "saved": 3,
+      "method": "discovered"
+    },
+    {
+      "source": "https://www.koloma.com/resources/in-the-news/",
+      "feed_url": "https://www.koloma.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 3,
+  "fetched": "2026-08-06T14:08:46Z"
+}
