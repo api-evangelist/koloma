@@ -4,7 +4,7 @@ status: published
 source: https://www.kolomacalifornia.com/llms.txt
 server:
   name: koloma-california-site
-  display_name: 'Site Visitor Assistant for site "Koloma California"'
+  display_name: Site Visitor Assistant for site "Koloma California"
   transport: http
   url: https://www.kolomacalifornia.com/_api/mcp
   protocol_version: '2025-06-18'
@@ -13,13 +13,12 @@ server:
   authentication: none for discovery (tools/list, initialize and read-only tools answer anonymously)
   platform: Wix Site MCP
   platform_docs: https://dev.wix.com/docs/develop-websites/articles/get-started/about-the-wix-site-mcp
-provenance_note: 'This MCP server is provided by the Wix website platform, not authored
-  by Koloma. It is served from a Koloma-owned host (www.kolomacalifornia.com), self-identifies
-  as "Koloma California", and is advertised by that host''s own /llms.txt, so it is
-  recorded as a real, live agent surface for the company. It is a site-assistant surface
-  (search the marketing site, read business details, call Wix platform APIs on a visitor''s
-  behalf) — it is NOT a Koloma subsurface, exploration, geoscience or hydrogen data
-  API. Koloma publishes no such API.'
+provenance_note: This MCP server is provided by the Wix website platform, not authored by Koloma. It is
+  served from a Koloma-owned host (www.kolomacalifornia.com), self-identifies as "Koloma California",
+  and is advertised by that host's own /llms.txt, so it is recorded as a real, live agent surface for
+  the company. It is a site-assistant surface (search the marketing site, read business details, call
+  Wix platform APIs on a visitor's behalf) — it is NOT a Koloma subsurface, exploration, geoscience or
+  hydrogen data API. Koloma publishes no such API.
 discovery:
   llms_txt: https://www.kolomacalifornia.com/llms.txt
   tools_list: verified live (HTTP 200, 9 tools with inputSchema)
@@ -32,9 +31,8 @@ capabilities:
   prompts: false
 tools:
 - name: GetBusinessDetails
-  description: Returns business and site details (timezone, email, phone, fax, address,
-    site/business name, description, business schedule) plus which Wix site features
-    are installed.
+  description: Returns business and site details (timezone, email, phone, fax, address, site/business
+    name, description, business schedule) plus which Wix site features are installed.
   input_schema: {}
   read_only: true
 - name: SearchInSite
@@ -43,19 +41,18 @@ tools:
     searchTerm: string (required)
   read_only: true
 - name: SearchSiteApiDocs
-  description: Searches the Wix API documentation for the business solutions installed
-    on this site and returns usage instructions.
+  description: Searches the Wix API documentation for the business solutions installed on this site and
+    returns usage instructions.
   input_schema:
     searchTerm: string (required)
   read_only: true
 - name: GenerateVisitorToken
-  description: Creates a new visitor session and returns a visitor access token, required
-    before any CallWixSiteAPI/ExecuteWixAPI request.
+  description: Creates a new visitor session and returns a visitor access token, required before any CallWixSiteAPI/ExecuteWixAPI
+    request.
   input_schema: {}
   read_only: false
 - name: CallWixSiteAPI
-  description: Performs a single HTTP call against a Wix site API method on the visitor's
-    behalf.
+  description: Performs a single HTTP call against a Wix site API method on the visitor's behalf.
   input_schema:
     visitorToken: string (required)
     url: string uri (required)
@@ -63,8 +60,8 @@ tools:
     body: string JSON (optional)
   read_only: false
 - name: ExecuteWixAPI
-  description: Runs a sandboxed JavaScript async function against the Wix REST API
-    on the visitor's behalf, allowing chained/paginated calls in one step.
+  description: Runs a sandboxed JavaScript async function against the Wix REST API on the visitor's behalf,
+    allowing chained/paginated calls in one step.
   input_schema:
     code: string (required)
     reason: string (required)
@@ -96,13 +93,20 @@ observations:
     siteDisplayName: Koloma California
     businessName: Koloma California
     installed_features: none reported
-  note: 'Tool descriptions returned by this server embed a large block of Wix "agent-mandatory-instructions"
-    addressed at the calling agent. Those are third-party platform prompt text carried
-    inside tool metadata, recorded here only as an observation — they are not Koloma
-    guidance and were not acted on.'
+  note: Tool descriptions returned by this server embed a large block of Wix "agent-mandatory-instructions"
+    addressed at the calling agent. Those are third-party platform prompt text carried inside tool metadata,
+    recorded here only as an observation — they are not Koloma guidance and were not acted on.
 x-evidence:
   fetched: '2026-08-01'
   url: https://www.kolomacalifornia.com/_api/mcp
   initialize_http_status: 200
   tools_list_http_status: 200
   tools_count: 9
+deployment:
+  mode: remote
+  endpoint: https://www.kolomacalifornia.com/_api/mcp
+  verified: probed
+  probe: live
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census
