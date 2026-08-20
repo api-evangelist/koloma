@@ -49,6 +49,10 @@ apis:
   baseURL: https://www.kolomacalifornia.com/_api/mcp
   tags:
   - MCP
+  - Site
+  - Agents
+  tags_raw:
+  - MCP
   - Model Context Protocol
   - Site
   - Agent
